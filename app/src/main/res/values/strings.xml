@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CryptoTracker</string>
+    <string name="bitcoin_price_index">Bitcoin Price Index</string>
+    <string name="updated">Updated:</string>
+    <string name="stop_tracking">Stop Tracking</string>
+    <string name="disclaimer">Disclaimer:\n %s</string>
+    <string name="min_limit">Min Limit($)</string>
+    <string name="max_limit">Max Limit($)</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+</resources>

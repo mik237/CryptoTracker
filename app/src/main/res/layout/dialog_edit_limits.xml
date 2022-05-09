@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/et_min_limit_value"
+        app:layout_constraintStart_toStartOf="@id/et_min_limit_value"
+        app:layout_constraintBottom_toTopOf="@id/et_min_limit_value"
+        android:id="@+id/tv_min_limit_label"
+        android:text="@string/min_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/et_max_limit_value"
+        app:layout_constraintStart_toStartOf="@id/et_max_limit_value"
+        app:layout_constraintBottom_toTopOf="@id/et_max_limit_value"
+        android:id="@+id/tv_max_limit_label"
+        android:text="@string/max_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        app:layout_constraintTop_toBottomOf="@id/tv_min_limit_label"
+        app:layout_constraintBottom_toTopOf="@id/btn_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/et_max_limit_value"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/et_min_limit_value"
+        tools:text="33021.2356"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        app:layout_constraintTop_toBottomOf="@id/tv_max_limit_label"
+        app:layout_constraintBottom_toTopOf="@id/btn_save"
+        app:layout_constraintStart_toEndOf="@id/et_min_limit_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/et_max_limit_value"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="24dp"
+        tools:text="33021.2356"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:visibility="gone"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_save"
+        app:layout_constraintTop_toBottomOf="@id/et_min_limit_value"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAllCaps="false"
+        android:text="@string/cancel"
+        android:textColor="@color/black"
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:visibility="gone"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintTop_toBottomOf="@id/et_max_limit_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAllCaps="false"
+        android:text="@string/save"
+        android:textColor="@color/black"
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
