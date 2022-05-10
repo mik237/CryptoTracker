@@ -1,9 +1,6 @@
 package com.ibrahim.cryptotracker.room_db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.ibrahim.cryptotracker.room_db.entities.Crypto
 import com.ibrahim.cryptotracker.room_db.entities.CryptoCurrency
 import com.ibrahim.cryptotracker.room_db.entities.Currency
@@ -16,9 +13,11 @@ interface CryptoDao {
     @Query("SELECT * FROM crypto")
     fun getCryptoList(): Flow<List<CryptoCurrency>>
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCrypto(crypto: Crypto)
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrency(currency: List<Currency>)
 }

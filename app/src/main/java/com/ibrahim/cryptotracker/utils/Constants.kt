@@ -6,6 +6,7 @@ object Constants {
     const val ACTION_STOP_TRACKING_SERVICE = "stopTrackingService"
     const val MAX_LIMIT_KEY = "maxLimitKey"
     const val MIN_LIMIT_KEY = "minLimitKey"
+    const val USD_CODE = "USD"
     const val MAX_NOTIFICATION_ID = 1024
     const val MIN_NOTIFICATION_ID = 2048
 }

@@ -7,7 +7,7 @@ import com.ibrahim.cryptotracker.room_db.entities.Crypto
 import com.ibrahim.cryptotracker.room_db.entities.Currency
 import com.ibrahim.cryptotracker.utils.ConnectionManager
 import com.ibrahim.cryptotracker.utils.Constants
-import com.ibrahim.cryptotracker.utils.NotificationManager
+import com.ibrahim.cryptotracker.utils.CryptoNotificationManager
 import com.ibrahim.cryptotracker.utils.PreferencesManager
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +17,7 @@ class MainRepository @Inject constructor(
     private val connectionManager: ConnectionManager,
     private val networkService: NetworkService,
     private val cryptoDatabase: CryptoDatabase,
-    private val notificationManager: NotificationManager,
+    private val notificationManager: CryptoNotificationManager,
     private val preferencesManager: PreferencesManager
 ) {
 
@@ -59,26 +59,6 @@ class MainRepository @Inject constructor(
                 rateFloat = it.bpi.uSD.rateFloat,
                 symbol = it.bpi.uSD.symbol
             )
-
-            preferencesManager.getLimit(Constants.MAX_LIMIT_KEY)?.let { maxLimit ->
-                if (currencyUSD.rateFloat >= maxLimit.toDouble()) {
-                    notificationManager.notifyUser(
-                        "Max Limit",
-                        "${currencyUSD.description} rate has reached to max limit $maxLimit",
-                        Constants.MAX_NOTIFICATION_ID
-                    )
-                }
-            }
-
-            preferencesManager.getLimit(Constants.MIN_LIMIT_KEY)?.let { minLimit ->
-                if (currencyUSD.rateFloat <= minLimit.toDouble()) {
-                    notificationManager.notifyUser(
-                        "Min Limit",
-                        "${currencyUSD.description} rate has dropped to min limit $minLimit",
-                        Constants.MIN_NOTIFICATION_ID
-                    )
-                }
-            }
 
             val currencies = listOf(currencyEUR, currencyGBP, currencyUSD)
             cryptoDatabase.cryptoDao().insertCurrency(currencies)
