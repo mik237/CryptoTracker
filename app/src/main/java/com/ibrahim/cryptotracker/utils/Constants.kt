@@ -9,4 +9,5 @@ object Constants {
     const val USD_CODE = "USD"
     const val MAX_NOTIFICATION_ID = 1024
     const val MIN_NOTIFICATION_ID = 2048
+    const val NOTIFICATION_ID = 101
 }

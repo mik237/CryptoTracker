@@ -17,7 +17,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TrackingService : Service() {
 
-    private var job: Job? = null
+    private var calling: Job? = null
+    private var listening: Job? = null
 
     @Inject lateinit var repository: MainRepository
     @Inject lateinit var preferencesManager: PreferencesManager
@@ -39,14 +40,16 @@ class TrackingService : Service() {
     }
 
     private fun stopTrackingService() {
-        job?.cancel()
+        calling?.cancel()
+        listening?.cancel()
+        stopForeground(true)
         stopSelf()
     }
 
     private fun startTrackingService() {
-        job?.cancel()
-        job = CoroutineScope(Dispatchers.IO).launch {
-           /* repository.getCryptoData().collect {
+        listening?.cancel()
+        listening=CoroutineScope(Dispatchers.IO).launch {
+            repository.getCryptoData().collect {
                 if (it.isNotEmpty()) {
                     val cryptoCurrency = it.first()
                     if(cryptoCurrency.currencies.isNotEmpty()){
@@ -78,11 +81,19 @@ class TrackingService : Service() {
                     }
                 }
 
-            }*/
+            }
+        }
+        calling?.cancel()
+        calling = CoroutineScope(Dispatchers.IO).launch {
             while (true) {
                 repository.fetchCurrencyRate().collect {}
                 delay(60000L)//wiating for 1 min
             }
         }
+
+
+        val notiBuilder = notificationManager.notificationBuilder(this)
+        startForeground(Constants.NOTIFICATION_ID, notiBuilder.build())
+
     }
 }

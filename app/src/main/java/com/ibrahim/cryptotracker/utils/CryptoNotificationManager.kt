@@ -69,4 +69,57 @@ class CryptoNotificationManager @Inject constructor(){
 
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
+
+    fun notificationBuilder(context: Context): NotificationCompat.Builder{
+        val channelId = "crypto_notification_channel"
+        val notificationManager : NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val resultIntent = Intent(context, MainActivity::class.java)
+
+
+        val pendingIntent: PendingIntent?
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            pendingIntent = PendingIntent.getActivity(
+                context,
+                0,
+                resultIntent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
+        else{
+            @SuppressLint("UnspecifiedImmutableFlag")
+            pendingIntent = PendingIntent.getActivity(
+                context,
+                0,
+                resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
+
+        val notificationBuilder = NotificationCompat.Builder(context, channelId).apply {
+            setSmallIcon(R.mipmap.ic_launcher)
+            setContentTitle("Crypto Tracker")
+            setContentText("Tracking..")
+            setDefaults(NotificationCompat.DEFAULT_ALL)
+            setOngoing(true)
+            setContentIntent(pendingIntent)
+            setAutoCancel(false)
+            priority = NotificationCompat.PRIORITY_MAX
+        }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            if(notificationManager.getNotificationChannel(channelId) == null){
+                val notificationChannel = NotificationChannel(
+                    channelId,
+                    "Crypto Tracking Notification",
+                    NotificationManager.IMPORTANCE_HIGH
+                ).apply {
+                    description = "Crypto Tracking Notification"
+                    setShowBadge(false)
+                }
+
+                notificationManager.createNotificationChannel(notificationChannel)
+            }
+        }
+        return  notificationBuilder
+    }
 }
