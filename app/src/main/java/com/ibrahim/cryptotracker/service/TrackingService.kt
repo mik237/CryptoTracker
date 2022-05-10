@@ -79,11 +79,9 @@ class TrackingService : Service() {
                 }
 
             }*/
-            var i = 0
             while (true) {
-                Log.d("_TAG_", "Tracking: ${i++}")
                 repository.fetchCurrencyRate().collect {}
-                delay(6000L)
+                delay(60000L)//wiating for 1 min
             }
         }
     }
